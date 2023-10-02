@@ -7,7 +7,7 @@ export default function Navbar() {
       <nav className={styles.navbar}>
         <div className={styles.brandContainer}>
           <img src="/logo.png" alt="Logo" className={styles.logo} />
-          <span className={styles.brandName}>URL-Shortener</span>
+          <span className={styles.brandName}>Cutelink-Shortener</span>
         </div>
       </nav>
     </div>

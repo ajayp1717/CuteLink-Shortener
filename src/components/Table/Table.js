@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Table.module.css";
 
-const baseUrl = process.env.REACT_APP_SERVERURL || "http://localhost:5000";
+const baseUrl = process.env.SERVER_URL || "http://localhost:5001";
 
 export default function Table(props) {
   const copyToClipboard = () => {
@@ -36,7 +36,8 @@ export default function Table(props) {
               </a>
             </td>
             <td className={`${styles.urlCell} ${styles.rightAlign}`}>
-              <a href={`${baseUrl}/${props.short}`} className={styles.link}>
+              <a href={`${props.full}`} className={styles.link} 
+              target="_blank" rel="noreferrer noopener">
                 {props.short}
               </a>
               <img

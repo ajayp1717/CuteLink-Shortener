@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import styles from "./Form.module.css";
 import axios from "axios";
 
-const serverBase = process.env.REACT_APP_SERVERURL || "http://localhost:5001";
+
+const serverBase = process.env.SERVER_URL || "http://localhost:5001";
 
 function is_url(str) {
   let exp = new RegExp(
@@ -42,7 +43,7 @@ export default function Form(props) {
 
     axios
       .post(`${serverBase}/short`, postData)
-      .then((res) => props.setFetchedData(res.data[0]))
+      .then((res) => props.setFetchedData(res.data))
       .catch((err) => {
         props.setErrMsg("Something Went Wrong.");
         props.setLoading(false);

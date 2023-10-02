@@ -1,11 +1,10 @@
 import express from "express";
 import mongoose from "mongoose";
+import shortid from "shortid";
 import shortUrl from "./model/shortStore.js";
 import cors from "cors";
 import dotenv from 'dotenv';
 dotenv.config();
-
-
 
 const app = express();
 
@@ -14,15 +13,11 @@ try {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
-
-  // Connection successful
   console.log('Connected to MongoDB');
 } catch (error) {
-  // Handle the error
   console.error('Error connecting to MongoDB:', error.message);
 }
 
-//use cors to allow cross origin resource sharing
 app.use(
   cors({
     origin: "http://localhost:3000",
@@ -38,24 +33,32 @@ app.get("/", (req, res) => {
 });
 
 app.post("/short", async (req, res) => {
-  const found = await shortUrl.find({ full: req.body.full });
-  if (found.length > 0) {
-    res.send(found);
+  const fullUrl = req.body.full;
+  const existingShortUrl = await shortUrl.findOne({ full: fullUrl });
+  if (existingShortUrl) {
+    res.send(existingShortUrl);
   } else {
-    await shortUrl.create({ full: req.body.full });
-    const foundNow = await shortUrl.find({ full: req.body.full });
-    res.send(foundNow);
+    const record = new shortUrl({
+      full: fullUrl
+    });
+    await record.save();
+    const newShortUrl = await shortUrl.findOne({ full: fullUrl });
+    res.send(newShortUrl);
   }
 });
 
 app.get("/:shortUrl", async (req, res) => {
   const short = await shortUrl.findOne({ short: req.params.shortUrl });
   if (short == null) return res.sendStatus(404);
+  
+  short.clicks++;
+  await short.save();
+  
   res.redirect(`${short.full}`);
 });
 
-let port = process.env.PORT || 5001
+const port = process.env.PORT || 5001;
 
-app.listen(port, function () {
+app.listen(port, () => {
   console.log("Server started successfully on port: ", port);
 });

@@ -16,6 +16,12 @@ const shortSchema = new mongoose.Schema({
     default: Date.now,
     expires: 3600,
   },
+  clicks: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  
 });
 
 export default mongoose.model("ShortUrl", shortSchema);
