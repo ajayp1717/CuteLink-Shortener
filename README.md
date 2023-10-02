@@ -1,12 +1,7 @@
 # 🔗 URL-Shortener
 
-  <p align="center">URL/Link shortener built using MERN stack.</p>  
-    
-  <br>
-    
-![url-shortener](/public/shortener_sneek.png)
+  <p align="center">URL shortener built using MERN stack.</p>  
   
----
   
 ### Tech Stack 📚
 
@@ -16,7 +11,7 @@
 
 ### Demo 🎥
 
-![](./public/shortener_demo.gif)
+https://github.com/ajayp1717/CuteLink-Shortener/assets/87872790/0c9775dc-b3ac-496e-b8da-58f635ef019e
 
 <br>
 
